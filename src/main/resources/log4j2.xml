@@ -52,38 +52,33 @@ X	|	%msg%n"	/>
 					-->
 				<Loggers>
 					 	 <!--		
-					 	 	 	Root	is	the	default	logger	unless	you	create	a	logger	for	a	specific	package	like	
-FoleyDes
+					 	 	 	Root	is the default logger unless you create	a logger for a specific	package	like FoleyDes
 					 	 	 	<Root	level="info">	to	show	all	log	messages	
 	 	 						Ref:	https://logging.apache.org/log4j/2.x/manual/customloglevels.html
 	 	 	 	<Root	level="debug">	if	you	want	to	see	these	messages
 	 	 						otherwise	info	shows	messages	only	from	0	to	400
-	 	 						use	-v	on	the	command	line	to	override	this	files	setting	to	debug	
-	 	 -->
+	 	 						use	-v	on	the	command	line	to	override	this	files	setting	to	debug	 	 -->
 								<Root	level="error">
 									 	 <!--	Sent	all	types	of	log	messages	to	the	console	window	-->
 												<AppenderRef	ref="STDOUT"	/>
 												<!--	Example	of	a	basic	log	all	appender	that	writes	to	the	same	file	all	the	time	-->
-												<!--		This	appender	definition	creates	a	single	file	that	keeps	getting	appended	to	-	can	get	t
-oo	big,	so	commented	out
+												<!--		This	appender	definition	creates	a	single	file	that	keeps	getting	appended	to	-	can	get	too	big,	so	commented	out
 													 <AppenderRef	ref="LOGFILE"/>
 												-->
 												<!--	Example	of	a	basic	rolling	log	appender	that	writes	to	the	a	different	file	each	day	-->
-												<!--	Each	day	a	new	logfile	is	created	and	the	old	one	backed	up	with	the	previous	date	appende
-d	-	logs	all	levels
+												<!--	Each day a new logfile is created and the old one backed up	with the previous date appended	- logs all levels
 												<AppenderRef	ref="ROLLINGLOGFILE"/>
 												-->
 								</Root>
-								<Logger	name="com"	level="info">
+								<Logger	name="FoleyDes"	level="info">
 												<!--	Rolling	log	appenders	that	write	info	messages	to	one	log	and	errors	to	another	-->
 												<!--	Log	info	level	only	with	a	rolling	log	-->
 												<AppenderRef	ref="ROLLINGLOGFILE-INFO"	level="info"/>
 												<!--	Log	info	level	only	with	a	rolling	log	-->
 												<AppenderRef	ref="ROLLINGLOGFILE-ERROR"	level="error"/>
 					 	 </Logger>
-					 	 <!--	A	logger	to	specifically	target	the	FoleyDes package	so	could	set	logging	le
-vels	for	just	it	-->
-					 	 <Logger	name="FoleyDes"	level="ALL">
+					 	 <!--	A	logger	to	specifically	target	the	FoleyDes package	so	could	set	logging	levels	for	just	it	-->
+					 	 <Logger	name=""	level="MusicProject">
 												<!--	Rolling	log	appenders	that	write	info	messages	to	one	log	and	errors	to	another	-->
 												<!--	Log	info	level	only	with	a	rolling	log	-->
 												<AppenderRef	ref="ROLLINGLOGFILE-INFO"	level="info"/>
