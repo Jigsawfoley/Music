@@ -20,6 +20,8 @@ public	class MenuBuilder {
 //	METHODS	
 //............................................................
 				private	void	buildMenu()
+				
+		
 				{
 //	The	Menu
 this.aMenu	=	
@@ -104,6 +106,7 @@ new	MenuHeading	(3,"Administration","Music	and	Life	program	administration	optio
 "Remove	a	playlist",
 "FoleyDes.MusicProject.menu.UndefinedMenuItem"
 																));
+								
 				}
 				public	Menu	getMenu()
 				{
@@ -117,4 +120,5 @@ this.aMenu.print();
 				{
 return this.aMenu.toString();
 				}
+				
 }
