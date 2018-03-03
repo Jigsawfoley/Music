@@ -1,4 +1,4 @@
-package	com.FoleyDes.MusicProject.user;
+package	FoleyDes.MusicProject.user;
 
 
 import	java.util.ArrayList;

@@ -2,9 +2,9 @@ package	FoleyDes.MusicProject.menu;
 /*****************************************************************
 *
 *	 Date:	2018
-*	 @author	Des Foley
+*	 @author des.foley
 *
-*		 Ref:	https://github.com/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns/composite/menu
+*		 Ref:https://github.com/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns/composite/menu
 *	
 *****************************************************************/
 public	class MenuItem extends MenuWidget{

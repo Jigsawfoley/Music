@@ -7,6 +7,8 @@ REM	IF	JAVA_HOME	is	set	you	do	not	need	to	specify	the	path	just	java
 REM	---------------------------------------------------------------------
 "C:\Program Files\Java\jdk1.8.0_162\bin\java.exe" 
 
+java -cp target\MusicProject-v1.jar	FoleyDes.MusicProject.App -d jdbc:sqlite:database/FoleyDes.db
+
 Java -cp target\MusicProject-v1.jar FoleyDes.MusicProject.App
 
 Java -cp target\MusicProject-v1.jar FoleyDes.MusicProject.App -v

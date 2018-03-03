@@ -9,12 +9,12 @@ import	java.util.Scanner;
 /*****************************************************************
 *
 *	 Date:	2018
-*	 @author	Des Foley
+*	 @author	des.foley
 *
-*		 Ref:	https://github.com/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns/composite/menu
-*		 Ref:	https://examples.javacodegeeks.com/java-basics/data-types/java-dictionary-example/
-*			Ref:	http://zetcode.com/java/hashmap/
-*			Ref:	https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+*		 Ref:https://github.com/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns/composite/menu
+*		 Ref:https://examples.javacodegeeks.com/java-basics/data-types/java-dictionary-example/
+*			Ref:http://zetcode.com/java/hashmap/
+*			Ref:https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
 *	
 *****************************************************************/
 public	class Menu extends MenuWidget {

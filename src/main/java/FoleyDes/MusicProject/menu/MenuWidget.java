@@ -3,9 +3,9 @@ import	java.util.Map;
 /*****************************************************************
 	*
 	*	 Date:	2018
-	*	 @author	Des Foley
+	*	 @author des.foley
 	*
-	*	Ref:	https://github.com/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns/composite/menu
+	*	Ref:https://github.com/bethrobson/Head-First-Design-Patterns/tree/master/src/headfirst/designpatterns/composite/menu
 	*	
 *****************************************************************/
 public	abstract class MenuWidget {

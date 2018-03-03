@@ -1,6 +1,7 @@
 package FoleyDes.MusicProject;
 
 import	java.io.File;
+
 import	java.io.IOException;
 import	java.util.Arrays;
 import	java.util.Date;
@@ -11,9 +12,11 @@ import	org.apache.logging.log4j.Logger;
 import	org.apache.logging.log4j.core.config.Configurator;
 import	FoleyDes.MusicProject.data.DataManagerSQLite;
 import	FoleyDes.MusicProject.menu.MenuBuilder;
+import  FoleyDes.MusicProject.App;
 import	joptsimple.OptionException;
 import	joptsimple.OptionParser;
 import	joptsimple.OptionSet;
+
 import	java.sql.Connection;
 import	java.sql.DriverManager;
 import	java.sql.ResultSet;
@@ -34,147 +37,317 @@ import	java.sql.Statement;
 	*	-	Show	how	to	setup	Log4j2
 	*	
 	*****************************************************************/
-public	class App
+public class App 
 {
-				public	static void	main(	String[]	args	)
+    public static void main( String[] args )
+    {
+       //To view the arguments being created
+    	seeCommandlineInput(args);
+    	
+    	//to instantiate App class based in the parameters entered at the commandline
+    	actionCommandlineInput(args);
+    }
+    
+    private Scanner someInput;
+    private Date today;
+    	
+    private static String VERSION = "0.5";
+    
+    
+    private String	databaseFile = "jdbc:sqlite:database/FoleyDes.db";
+    private String dbURL;
+    
+    
+    private static Logger LOG;
+    
+    
+    public App(String dbURL, Level logLevel)
+    {
+    	
+    	this.dbURL = dbURL;
+    	
+    	LOG = LogManager.getLogger(App.class);
+    	Configurator.setLevel(LOG.getName(), logLevel);
+    	
+    	LOG.info("Commandline requested log level:" + logLevel);
+    	LOG.info("Commandline requested log level:"+ LOG.isDebugEnabled());
+    	
+    	
+    	//test the logging
+    	//testLogOutput();
+    	
+    	this.someInput = new Scanner(System.in);
+    	
+    	DataManagerSQLite.getInstance().setDataFile(this.dbURL);
+    	
+    	
+    	MenuBuilder	theMenu	=	new	MenuBuilder();
+		
+		theMenu.getMenu().display();
+    	
+    	
+    	
+    	
+    	
+    	//showListOfUsers();
+
+    
+    //do something
+   // System.out.println("\n Sooon.... stuff will happen here ");
+    
+    //pause before exit
+    	
+    	
+    System.out.println("\n Press enter to exit program");
+    this.someInput.nextLine();
+    
+    
+    System.exit(0);
+    
+    }
+    
+    public App(String dbFile) {
+		this(dbFile, Level.INFO);
+	}
+
+    public String getDtabaseName()
+    {
+    	return this.dbURL;
+    }
+	
+    public static void actionCommandlineInput (String args[]) 
+	{
+		String	filename	=	null;
+		String	dbType	=	null;
+		String	dbURL	=	null;
+		
+		try
+	
+		{	
+			final	OptionParser	optionParser	=	new	OptionParser();
+													
+			optionParser.acceptsAll(Arrays.asList("v",	"verbose"),	"Set	logging	level	to	DEBUG	to	see	all	levels	of	log	messages").forHelp();
+
+
+			optionParser.acceptsAll(Arrays.asList("h",	"help"),	"Display	help/usage	information").forHelp();
+			
+			optionParser.acceptsAll(Arrays.asList("r",	"version"),	"Display	program	version	information").forHelp();
+			
+			optionParser.acceptsAll(Arrays.asList("d",	"database"),	"Path	and	name	of	database	file.")
+			
+			.withRequiredArg()
+			
+			.ofType(String.class)
+			
+			.describedAs("SQlite	database");
+			
+			
+			
+			final	OptionSet	options	=	optionParser.parse(args);
+			
+			
+			
+			if	(options.has("help"))
+			
+			{
+			
+				System.out.println("This	program	takes	an	SQL	database	with	a	User	table	as	displays	the	users.");
+				
+				System.out.println("It	is	provided	as	an	example	for	teaching	Java	programming.");
+				
+				printUsage(optionParser);
+				
+				System.exit(0);
+				
+			}
+										
+			
+			if	(options.has("version"))
+				
+			{
+			
+				System.out.println("Pythia	version	:	"	+	VERSION);
+			
+				System.exit(0);
+				
+			}
+													
+			if	(!options.has("database"))
+			
+			{
+			
+				System.out.println("Option	\"-d	database\"	is	required");
+				
+				System.out.println("expecting	the	filename	to	be	specified	as	follows:	jdbc:sqlite:filepath\filename");
+														
+				
+				System.exit(0);
+				
+			}
+			
+			else
+			
+			{
+														
+				
+				dbURL	=	(String)	options.valueOf("database");
+				
+														
+				
+				filename	=	dbURL.substring(dbURL.lastIndexOf(':')+1);
+				
+														
+				
+				dbType	=	dbURL.substring(dbURL.indexOf(':')+1,	dbURL.lastIndexOf(':'));
+				
+				
+			}
+										
+										
+			
+			if	(	dbType.equals("sqlite"))
+			
+			{
+			
+				if	(!new	File(filename).isFile())
+				
 				{
-//	To	view	the	arguments	being	entered
-								seeCommandlineInput(args);
-//	To	instantiate	App	class	based	in	the	parameters	entered	at	the	commandline
-								actionCommandlineInput(args);
-				}
-//	DATA
-//............................................................
-//define	attributes
-				private	 Scanner	someInput;
-				private	Date	today;
-//	This	is	added	to	every	class	that	needs	to	log	with	one	change
-//	The	getLogger(	)	part	should	contain	the	name	of	the	class	its	in
-				private	static	Logger	LOG;
-				private	static String	VERSION	=	"0.5";
-//The	URL	and	name	of	the	SQLite	database
-//	TODO:	Remove	database	location	and	name	hard	coding	and	pass	in	as	a	parameter	in	the	next	version
-				private	String	databaseFile	=	"jdbc:sqlite:database/oreallyoreilly.db";
-//	CONSTRUCTORS
-//............................................................
-				public	App(	Level	logLevel	)
-				{	 	
-//associate	logging	with	this	class	so	know	the	messages	that	came	from	objects	of	this	class
-								LOG	=	LogManager.getLogger(App.class);
-								Configurator.setLevel(LOG.getName(),	logLevel);
-//	Check	the	log	level	requested
-								LOG.info("Commandline	requested	log	level:"	+	logLevel	);	 	
-								LOG.info("Application	started	with	log	level	debug:"	+	LOG.isDebugEnabled());
-//test	the	logging	-	uncomment	if	needed
-//testLogOutput();
-this.someInput	=	new	Scanner(System.in);
-//set	the	database	file	to	use
-								DataManagerSQLite.getInstance().setDataFile(this.databaseFile);
-								MenuBuilder	theMenu	=	new	MenuBuilder();
-//theMenu.print();
-//LOG.debug(theMenu.display());		
-								theMenu.getMenu().display();
-//pause	before	exit	(this	is	only	useful	if	an	error	occurs)
-								System.out.println("	\n	Press	enter	to	exit	the	program");
-this.someInput.nextLine();
-//close	the	program	without	error
-								System.exit(0);
-				}
-				public	App()
-				{
-this(	Level.INFO	);
-				}
-//	METHODS	used	by	main()	or	debug	methods	-	note	they	are	static	methods
-//............................................................
-/**
-					*	action	the	arguments	presented	at	the	command	line
-					*	instantiate	the	App	class	based	on	the	arguments	passed
-					*/
-					private	static void	actionCommandlineInput(	String	args[]	)
-					{
-try
-												{	
-final	OptionParser	optionParser	=	new	OptionParser();
-//define	the	allowed	arguments
-																optionParser.acceptsAll(Arrays.asList("v",	"verbose"),	"Set	logging	level	to	DEBUG	to	see	all	levels	of	log	messages").forHelp();
-																optionParser.acceptsAll(Arrays.asList("h",	"help"),	"Display	help/usage	information").forHelp();
-																optionParser.acceptsAll(Arrays.asList("r",	"version"),	"Display	program	version	information").forHelp();
-final	OptionSet	options	=	optionParser.parse(args);
-if	(options.has("help"))
-																{
-																				System.out.println("This	program	takes	an	SQL	database	with	a	User	table	as	displays	the	users.");
-																				System.out.println("It	is	provided	as	an	example	for	teaching	Java	programming.");
-																				printUsage(optionParser);
-																				System.exit(0);
-																}
-if	(options.has("version"))
-																{
-																				System.out.println("Pythia	version	:	"	+	VERSION);
-																				System.exit(0);
-																}
-//	valid	input	so	start	the	program	with	the	name	of	the	database	file	to	use
-if	(options.has("verbose")	)
-															{
-																			Level	logLevel	=	Level.DEBUG;
-																			System.out.println("RUN	WITH:	logging	level	requested:	"	+	logLevel);
-																			App	anApp	=	new	App(logLevel);
-															}
-else
-															{
-																			System.out.println("RUN	WITH:	logging	level	requested:	"	+	Level.INFO);
-																			App	anApp	=	new	App();
-															}
-												}
-catch	(OptionException	argsEx)
-												{
-													 	 System.out.println("ERROR:	Arguments\\parameter	is	not	valid.	"	+	argsEx);
-												}
-					}//EOM
-/**
-					*	Write	help	message	to	standard	output	using
-					*	the	provided	instance	of	{@code	OptionParser}.
-					*/
-					private	static void	printUsage(final	OptionParser	parser)
-					{
-try
-										{
-													parser.printHelpOn(System.out);		
-										}
-catch	(IOException	ioEx)
-										{
-//	System.out.println("ERROR:	Unable	to	print	usage	-	"	+	ioEx);
-													LOG.error("ERROR:	Unable	to	print	usage	-	"	+	ioEx);
-										}
-					}//EOM
-/**
-					*	View	the	arguments	presented	at	the	commandline
-					*	This	is	for	debug	and	demo	purposes
-					*/
-					private	static void	seeCommandlineInput(	String	args[]	)
-					{	
-if	(args.length	==	0)
-								{
-												System.out.println("There	were	no	commandline	arguments	passed!");
-								}
-else
-								{
-//	display	the	command	line		entered	
-for(int	i	=	0;	i	<	args.length;	i++)	
-												{
-																System.out.println(args[i]);
-												}
-								}
-					}//EOM
-/**
-					*	Test	the	Log4J2	logging
-					*/
-					private	static void	testLogOutput()
-					{
-								LOG.debug("Log	test:	Test	printed	on	debug");
-								LOG.info("Log	test:	Test	printed	on	info");
-								LOG.warn("Log	test:	Test	printed	on	warn");
-								LOG.error("Log	test:	Test	printed	on	error");
-								LOG.fatal("Log	test:	Test	printed	on	fatal");
-								LOG.info("Appending	string:	{}.",	"Application	log	test	message	-	Hi");
-					}//EOM
-}//EOC
+																	
+					System.out.println("ERROR:	Database	file	does	not	exist	:	"	+	(String)options.valueOf("database"));
+					
+					System.out.println("If	the	file	is	in	the	same	directory	as	the	JAR	then	the	location	would	be:	databaseFileName.Extention");
+					
+					
+					System.out.println("for	windows	the	database	file	location	would	be:	C://folder/folder/databaseFileName.Extention");
+					
+					System.out.println("for	MAC	the	database	file	location	would	be:	/Volumes/VolumeName/folder/folder/databaseFileName.Extention");
+					
+					System.exit(0);
+				
+				}	 	 	 	 	 	
+				
+			}
+			
+			else if	(	dbType.equals("mysql"))
+				
+			{
+				System.out.println("Support	for	mySQL	is	coming	soon.	Please	use	an	SQLite	database");
+			 	
+				System.exit(0);		 	 	 	
+				
+			}
+			
+			else
+			
+			{
+			
+				System.out.println("Unsupported	database	type	requested	"	+	dbType);
+				
+				System.exit(0);
+				
+			}
+										
+			
+										
+			
+			if	(options.has("database")	&&	options.has("verbose"))
+			
+			{
+			
+				Level	logLevel	=	Level.DEBUG;
+				
+				System.out.println("RUN	WITH:	Database:	"	+	dbURL	+	"	logging	level	requested:	"	+	logLevel);
+				
+				App	anApp	=	new	App(	dbURL,	logLevel);
+				
+			}
+			
+			else
+			
+			{
+			
+				System.out.println("RUN	WITH:	Database:	"	+	dbURL	+	"	logging	as	per	main/resources/Log4J2.xml");
+				
+				App	anApp	=	new	App(dbURL);
+				
+			}	 			
+									
+			
+		}
+		
+		catch	(OptionException	argsEx)
+		
+		{
+		
+			System.out.println("ERROR:	Arguments\\parameter	is	not	valid.	"	+	argsEx);
+			
+			System.exit(0);
+			
+		}
+		
+		catch	(IndexOutOfBoundsException	iobEx)
+		
+		{
+		
+			System.out.println("ERROR:	invalid	database	name	format	provided	"	+	iobEx);
+			
+			System.out.println("expecting	the	filename	to	be	specified	as	follows	>	jdbc:sqlite:filepath\filename");
+			
+			System.exit(0);	
+			
+		}
+}
+    
+    private static void printUsage(final	OptionParser	parser)
+	{
+			try
+			{
+				parser.printHelpOn(System.out);		
+			}
+			
+			catch	(IOException ioEx)
+					{							//	System.out.println("ERROR:	Unable	to	print	usage	-	"	+	ioEx);
+						LOG.error("ERROR:	Unable	to	print	usage	-	"	+	ioEx);
+					}
+	}	
+    
+
+    public static void seeCommandlineInput (String args[])
+    {
+    	if (args.length == 0)
+    	{
+    		System.out.println("There was no commands passed");
+    		
+    	}
+    	else
+    	{
+    		//display the command line text entered
+    		for(int i=0; i <args.length; i++)
+    		{
+    			System.out.println(args[i]);
+    		}
+    	}
+    }
+	
+	
+	
+    
+    /**
+     * test the Log4j2 logging
+     */
+    
+    private static void testLogOutput()
+    {
+    	LOG.debug("Log test: Test printed info");
+    	LOG.info("Log test: Test printed info");
+    	LOG.warn("Log test: Test printed warn");
+    	LOG.error("Log test: Test printed error");
+    	LOG.fatal("Log test: Test printed fatal");
+    	
+    	LOG.info("Appending string: {}.", "Application log test message - hi ");
+    	
+    	
+    }
+}
+
+
