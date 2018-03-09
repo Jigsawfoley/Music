@@ -9,8 +9,9 @@ import FoleyDes.MusicProject.playlist.PlaylistDAO;
 public class PlaylistViewMenuItem implements IExecuatable {
 
 	public PlaylistViewMenuItem() {
-		// TODO Auto-generated constructor stub
+		
 	}
+
 	public void execute() {
 
 		PlaylistDAO model = new PlaylistDAO(DataManagerSQLite.getInstance());

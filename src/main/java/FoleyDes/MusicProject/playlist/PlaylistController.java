@@ -6,11 +6,12 @@ public class PlaylistController {
 	private PlaylistConsoleListView view;
 	private PlaylistDAO model;
 	Scanner input = new Scanner(System.in);
-	
+
 	public PlaylistController(PlaylistConsoleListView view, PlaylistDAO model) {
 		this.view = view;
 		this.model = model;
 	}
+
 	public void display() {
 		view.setPlaylist(model.getAllPlaylists());
 		view.display();

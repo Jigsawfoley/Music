@@ -9,8 +9,8 @@ import FoleyDes.MusicProject.music.MusicDAO;
 public class MusicViewMenuItem implements IExecuatable {
 
 	public MusicViewMenuItem() {
-		// TODO Auto-generated constructor stub
-	}
+			}
+
 	public void execute() {
 		MusicDAO model = new MusicDAO(DataManagerSQLite.getInstance());
 		MusicConsoleListView view = new MusicConsoleListView();

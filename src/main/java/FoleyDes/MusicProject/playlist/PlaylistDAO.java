@@ -12,9 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import FoleyDes.MusicProject.data.IDataManager;
 
-
-
-
 public class PlaylistDAO implements IPlaylistDAO {
 
 	// DATA
@@ -32,15 +29,14 @@ public class PlaylistDAO implements IPlaylistDAO {
 	public PlaylistDAO(IDataManager dataManager) {
 		this.dataManager = dataManager;
 	}
+
 	public ArrayList<Playlist> getAllPlaylists() {
 
 		ArrayList<Playlist> playlist = new ArrayList<Playlist>();
 
-		// Get JDBC connection to database
 		Connection connection = null;
 
 		try {
-			// get a database connection
 			connection = this.dataManager.getConnectionObject();
 
 			Statement statement = connection.createStatement();
@@ -53,14 +49,11 @@ public class PlaylistDAO implements IPlaylistDAO {
 			// iterate through the results create User objects put in the ListArray
 
 			while (resultSet.next()) {
-				Playlist playlistItem = new Playlist(
-						resultSet.getInt("playlistID"), 
-						resultSet.getString("playlistName"),
-						resultSet.getString("playlistDescription"),
-						resultSet.getInt("playlistOwnerID"), 
-						resultSet.getString("playlistAdded")
+				Playlist playlistItem = new Playlist(resultSet.getInt("playlistID"),
+						resultSet.getString("playlistName"), resultSet.getString("playlistDescription"),
+						resultSet.getInt("playlistOwnerID"), resultSet.getString("playlistAdded")
 
-						);
+				);
 
 				// putting the user objects into the list but not using them yet
 				playlist.add(playlistItem);

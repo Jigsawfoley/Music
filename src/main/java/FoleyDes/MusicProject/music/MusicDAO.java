@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import FoleyDes.MusicProject.data.IDataManager;
 
-
 public class MusicDAO implements IMusicDAO {
 
 	// DATA
@@ -31,6 +30,7 @@ public class MusicDAO implements IMusicDAO {
 	public MusicDAO(IDataManager dataManager) {
 		this.dataManager = dataManager;
 	}
+
 	public ArrayList<Music> getAllMusic() {
 
 		ArrayList<Music> musicList = new ArrayList<Music>();
@@ -52,15 +52,10 @@ public class MusicDAO implements IMusicDAO {
 			// iterate through the results create User objects put in the ListArray
 
 			while (resultSet.next()) {
-				Music music = new Music(
-						resultSet.getInt("musicID"), 
-						resultSet.getString("musicArtist"),
-						resultSet.getString("musicName"), 
-						resultSet.getString("musicAlbum"),
-						resultSet.getString("musicLink"),
-						resultSet.getInt("addedByUserID"),
-						resultSet.getString("dateAdded")
-					);
+				Music music = new Music(resultSet.getInt("musicID"), resultSet.getString("musicArtist"),
+						resultSet.getString("musicName"), resultSet.getString("musicAlbum"),
+						resultSet.getString("musicLink"), resultSet.getInt("addedByUserID"),
+						resultSet.getString("dateAdded"));
 
 				// putting the user objects into the list but not using them yet
 				musicList.add(music);
@@ -105,7 +100,5 @@ public class MusicDAO implements IMusicDAO {
 	public String printMusic(int musicID) {
 		throw new UnsupportedOperationException();
 	}
-		
-	
 
 }
