@@ -1,3 +1,3 @@
-# DATA directory
+## DATA directory
 
-Used to store files pre-load into the database e.g. .csv files
+Used to store files pre-loaded into the database

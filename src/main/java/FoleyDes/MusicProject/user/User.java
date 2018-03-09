@@ -82,7 +82,7 @@ public class User {
 		this.userLastUpdate = userLastUpdate;
 	}
 	public void display() {
-		
+		System.out.println(this.toString());
 		
 	}
 	

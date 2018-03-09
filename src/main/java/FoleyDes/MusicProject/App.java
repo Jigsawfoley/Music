@@ -2,6 +2,7 @@ package FoleyDes.MusicProject;
 
 import	java.io.File;
 
+
 import	java.io.IOException;
 import	java.util.Arrays;
 import	java.util.Date;
@@ -25,7 +26,7 @@ import	java.sql.Statement;
 /*****************************************************************
 	*
 	*	 	Date:	2018
-	*	 	@author	Des Foley
+	*	 	@author	des.foley
 	*
 	*	
 	*	The	purpose	of	this	application	is	to	provide	an	example	for	the	following:
@@ -54,7 +55,7 @@ public class App
     private static String VERSION = "0.5";
     
     
-    private String	databaseFile = "jdbc:sqlite:database/FoleyDes.db";
+    private String databaseFile = "jdbc:sqlite:database/FoleyDes.db";
     private String dbURL;
     
     
@@ -133,13 +134,13 @@ public class App
 			
 			optionParser.acceptsAll(Arrays.asList("r",	"version"),	"Display	program	version	information").forHelp();
 			
-			optionParser.acceptsAll(Arrays.asList("d",	"database"),	"Path	and	name	of	database	file.")
+			optionParser.acceptsAll(Arrays.asList("d",	"database"), "Path and name	of database	file.")
 			
 			.withRequiredArg()
 			
 			.ofType(String.class)
 			
-			.describedAs("SQlite	database");
+			.describedAs("SQlite database");
 			
 			
 			
