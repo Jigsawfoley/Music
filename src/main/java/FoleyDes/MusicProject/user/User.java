@@ -101,4 +101,9 @@ public class User {
 
 	}
 
+	public void displayForPlayListChoice() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -91,4 +91,9 @@ public class Music {
 		System.out.println(this.toString());
 	}
 
+	public void displayForPlayList() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

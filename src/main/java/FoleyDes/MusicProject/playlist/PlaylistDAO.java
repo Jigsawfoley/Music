@@ -11,6 +11,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import FoleyDes.MusicProject.data.IDataManager;
+import FoleyDes.MusicProject.music.Music;
+import FoleyDes.MusicProject.user.User;
 
 public class PlaylistDAO implements IPlaylistDAO {
 
@@ -97,5 +99,20 @@ public class PlaylistDAO implements IPlaylistDAO {
 
 	public String printPlaylist(int playlistID) {
 		throw new UnsupportedOperationException();
+	}
+
+	public Object getUserlist() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<User> getUserList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Music> getPlayList(int playListId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
